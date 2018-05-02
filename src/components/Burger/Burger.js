@@ -14,5 +14,5 @@ const burger = (props) => {
     );
 }
 
-export default Burger;
+export default burger;
 

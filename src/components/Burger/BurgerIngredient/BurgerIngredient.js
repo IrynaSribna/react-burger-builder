@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'; 
 import classes from './BurgerIngredient.css'
 
-class BurgerIngredient extends Comment {
+class BurgerIngredient extends Component {
     render () {
         let ingredient = null;
 
@@ -22,19 +22,19 @@ class BurgerIngredient extends Comment {
                 ingredient = <div className={classes.Meat}></div>;
                 break;
             case ('cheese'):
-                ingredient = <div classeName={classes.Cheese}></div>;
+                ingredient = <div className={classes.Cheese}></div>;
                 break;  
             case ('salad'):
-                ingredient = <div classeName={classes.Salad}></div>;
+                ingredient = <div className={classes.Salad}></div>;
                 break; 
             case ('bacon'):
-                ingredient = <div classeName={classes.Bacon}></div>;
+                ingredient = <div className={classes.Bacon}></div>;
                 break; 
             default:
                 ingredient = null;
-            
-            return ingredient;    
         }
+
+        return ingredient;
     }
 };
 
@@ -42,4 +42,4 @@ BurgerIngredient.propTypes = {
     type: PropTypes.string.isRequired
 };
 
-export default BurgerIngrediet;
+export default BurgerIngredient;
