@@ -13,13 +13,20 @@ const burger = (props) => {
         cheese: 2
     } will be transformed to [salad, salad, bacon, cheese, cheese]
     */
-    const transformedIngredients = Object.keys(props.ingredients)
+    let transformedIngredients = Object.keys(props.ingredients)
         .map(ingKey => { //ingKey is the string (ingredient name: salad, cheese etc)
             return [...Array(props.ingredients[ingKey])].map((_, index) => {
                 return <BurgerIngredient key={ingKey + index} type={ingKey} /> //key={ingKey + index} to make the element unique
             });
-        }); 
-
+        }).reduce((prev, curr) => { //this reduce flatts array of arrays to an array (flatMap analog)
+                return prev.concat(curr)
+            }, []); 
+     
+               
+    if (transformedIngredients.length === 0) {
+        transformedIngredients = <p>Please start adding ingredients!</p>
+    }    
+    console.log(transformedIngredients);    
     return(
         <div className={classes.Burger}>
             <BurgerIngredient type="bread-top"/>
