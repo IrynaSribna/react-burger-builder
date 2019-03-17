@@ -4,11 +4,15 @@ import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../Aux/Aux';
 
 const withErrorHandler = (WrappedComponent, axios) => {
-    return class extends Component { //INTERESTING
+    return class extends Component { //INTERESTING it is an anonymous components
         state = {
             error: null
         }
-        componentDidMount() {
+        //we had here before componentDidMount()
+        //but this method works only when childeren's componentDidMount execured
+        //therefore we could not catch errors in the child component BurgerBuilder
+        constructor(props) {
+            super(props);
             axios.interceptors.request.use(request => {
                 this.setState({error: null});
                 return request;
