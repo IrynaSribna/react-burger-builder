@@ -11,15 +11,25 @@ const withErrorHandler = (WrappedComponent, axios) => {
         //we had here before componentDidMount()
         //but this method works only when childeren's componentDidMount execured
         //therefore we could not catch errors in the child component BurgerBuilder
+        //we could you componentWillMount() here but thid lifecycle hook can get obsolete
         constructor(props) {
             super(props);
-            axios.interceptors.request.use(request => {
+            this.reqInterceptor = axios.interceptors.request.use(request => {
                 this.setState({error: null});
                 return request;
             })
-            axios.interceptors.response.use(res => res, error => { //res => res returns the res
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => { //res => res returns the res
                 this.setState({error: error});
             })
+        }
+
+        //remove inteceptors to prevent memory leaks otherwise there will be a lot of instances
+        //for all components wrapped with withErrorHandler one
+        //once we do not need the component wrapped with withErrorHandler, the interceptor attached to the wrapped component will be cleaned up
+        componentWillUnmount() {
+            console.log('Will Unmount ', this.reqInterceptor, this.resInterceptor);
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
         }
 
         errorConfirmedHandler = () => {this.setState({error: null})}
