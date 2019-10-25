@@ -35,6 +35,7 @@ class BurgerBuilder extends Component {
     // }
 
     componentDidMount() {
+        console.log(this.props);
         axios.get('/ingredients.json')
             .then(response => {
                 console.log(response);
@@ -96,29 +97,29 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         // alert('You continue');
-        this.setState( {loading: true} );
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice, //this should come from back end in real production
-            customer: {
-                name: 'Iryna',
-                address: {
-                    street: 'Test street 1',
-                    zipCode: '23412',
-                    country: 'Germany'
-                },
-                email: 'myMail@gmail.com'
-            },
-            deliveryMethod: 'fastets'
-        }
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState( {loading: false, purchasing: false } ); //purchasing: false to close the Modal
-            })
-            .catch(error => {
-                this.setState( {loading: false, purchasing: false } );
-            });
-    }
+        // this.setState( {loading: true} );
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice, //this should come from back end in real production
+        //     customer: {
+        //         name: 'Iryna',
+        //         address: {
+        //             street: 'Test street 1',
+        //             zipCode: '23412',
+        //             country: 'Germany'
+        //         },
+        //         email: 'myMail@gmail.com'
+        //     },
+        //     deliveryMethod: 'fastets'
+        // }
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         this.setState( {loading: false, purchasing: false } ); //purchasing: false to close the Modal
+        //     })
+        //     .catch(error => {
+        //         this.setState( {loading: false, purchasing: false } );
+        //     });
+        this.props.history.push('/checkout'); // push the page on the stack of pages
 
     render () {
         const disabledInfo = {
