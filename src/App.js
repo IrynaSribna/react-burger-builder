@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Layout from './hoc/Layout/Layout';
 
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -21,8 +22,10 @@ class App extends Component {
       <Layout>
         {/* to test componentWillUnmount in withErrorHandler component */}
         {/* {this.state.show ? <BurgerBuilder /> : null} */}
-        <BurgerBuilder />
-        <Checkout />
+        <Switch>
+          <Route path="/" exact component={BurgerBuilder} /> {/* exact is needed if we do not wrap to Switch */}
+          <Route path="/checkout" component={Checkout} />
+        </Switch>
       </Layout>
     );
   }
